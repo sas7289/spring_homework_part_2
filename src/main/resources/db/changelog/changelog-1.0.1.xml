@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd ">
+
+    <changeSet id="flood" author="Aleksandr Shakhoff">
+
+        <insert tableName="role">
+            <column name="name" value="user"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="name" value="user_1"/>
+            <column name="middle_name" value="user_1_1"/>
+            <column name="last_name" value="user_1_1_1"/>
+            <column name="phone" value="8 800 555 35 35"/>
+            <column name="login" value="user_1"/>
+            <column name="password" value="pass"/>
+            <column name="role_id" value="1"/>
+        </insert>
+
+    </changeSet>
+
+
+</databaseChangeLog>

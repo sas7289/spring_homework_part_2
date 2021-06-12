@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/my_market?currentSchema=my_market
+    username: login
+    password: password
+  liquibase:
+    change-log: classpath:db/changelog-master.xml
+
