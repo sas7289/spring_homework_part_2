@@ -49,8 +49,7 @@
             </column>
             <column name="quantity_in_stock" type="int" defaultValue="0"/>
         </createTable>
-
-
+        
         <createTable tableName="cart">
             <column name="id" type="uuid">
                 <constraints primaryKey="true"/>
