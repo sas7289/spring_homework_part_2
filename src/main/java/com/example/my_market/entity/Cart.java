@@ -18,4 +18,36 @@ public class Cart {
 
     @Column(name = "user_id")
     private UUID user_id;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(UUID product_id) {
+        this.product_id = product_id;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public UUID getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(UUID user_id) {
+        this.user_id = user_id;
+    }
 }

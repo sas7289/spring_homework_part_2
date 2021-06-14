@@ -15,4 +15,28 @@ public class Product {
 
     @Column(name = "quantity_in_stock")
     private Integer quantity_in_stock;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getQuantity_in_stock() {
+        return quantity_in_stock;
+    }
+
+    public void setQuantity_in_stock(Integer quantity_in_stock) {
+        this.quantity_in_stock = quantity_in_stock;
+    }
 }

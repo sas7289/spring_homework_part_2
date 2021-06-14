@@ -15,4 +15,28 @@ public class Review {
 
     @Column(name = "product_id")
     private UUID product_id;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public UUID getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(UUID product_id) {
+        this.product_id = product_id;
+    }
 }
