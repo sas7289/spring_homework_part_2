@@ -19,7 +19,7 @@
             </column>
         </createTable>
 
-        <createTable tableName="user">
+        <createTable tableName="users">
             <column name="id" type="uuid">
                 <constraints primaryKey="true"/>
             </column>
@@ -60,7 +60,7 @@
             </column>
             <column name="quantity" type="int" defaultValue="0"/>
             <column name="user_id" type="uuid">
-                <constraints nullable="false" foreignKeyName="fk_user_id" references="user(id)"/>
+                <constraints nullable="false" foreignKeyName="fk_user_id" references="users(id)"/>
             </column>
         </createTable>
 
