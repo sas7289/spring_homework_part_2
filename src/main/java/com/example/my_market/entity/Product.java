@@ -16,6 +16,17 @@ public class Product {
     @Column(name = "quantity_in_stock")
     private Integer quantity_in_stock;
 
+    @Column(name = "price")
+    private Integer price;
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
     public UUID getId() {
         return id;
     }
