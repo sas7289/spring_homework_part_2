@@ -6,24 +6,29 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
-@Table(name = "order")
+@Table(name = "orders")
 @Entity
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
+    @PrePersist
+    private void serId(){
+        id = UUID.randomUUID();
+    }
 
     @Column(name = "user_id")
     private UUID userId;
 
     @Column(name = "date_of_creation")
-    private LocalDateTime date_of_creation;
+    private Timestamp date_of_creation;
 
     public Order() {
     }
 
     public Order(UUID userId) {
         this.userId = userId;
+        date_of_creation = new Timestamp(System.currentTimeMillis());
     }
 
     public UUID getId() {
@@ -42,11 +47,11 @@ public class Order {
         this.userId = userId;
     }
 
-    public LocalDateTime getDate_of_creation() {
+    public Timestamp getDate_of_creation() {
         return date_of_creation;
     }
 
-    public void setDate_of_creation(LocalDateTime date_of_creation) {
+    public void setDate_of_creation(Timestamp date_of_creation) {
         this.date_of_creation = date_of_creation;
     }
 }

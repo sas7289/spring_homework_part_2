@@ -23,7 +23,7 @@ public class CartView extends VerticalLayout {
         this.cartService = cartService;
         this.orderService = orderService;
 //        List<Cart> carts = cartService.findAll();
-        List<Cart> carts = cartService.findAllByUserId(UUID.fromString("3e364c6d-a2fd-4808-991c-21204a8daf91"));
+        List<Cart> carts = cartService.findAllByUserId(UUID.fromString("51ef560b-7596-43e6-bfb5-3adbdcf317bd"));
         Grid<Cart> grid = new Grid(Cart.class);
         grid.setItems(carts);
         grid.setSizeUndefined();
@@ -31,8 +31,8 @@ public class CartView extends VerticalLayout {
         grid.setColumns("product.title", "quantity");
 
         add(new Button("Заказать", event -> {
-            UUID orderId = orderService.save(UUID.fromString("3e364c6d-a2fd-4808-991c-21204a8daf91"));
-            cartService.addOrderIdToItems(UUID.fromString("3e364c6d-a2fd-4808-991c-21204a8daf91"), orderId);
+            UUID orderId = orderService.save(UUID.fromString("51ef560b-7596-43e6-bfb5-3adbdcf317bd"));
+            cartService.addOrderIdToItems(UUID.fromString("51ef560b-7596-43e6-bfb5-3adbdcf317bd"), orderId);
         }));
 
         add(grid);

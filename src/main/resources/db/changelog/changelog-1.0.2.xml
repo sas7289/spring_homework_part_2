@@ -19,7 +19,7 @@
             <column name="phone" value="8 800 555 35 35"/>
             <column name="login" value="user_1"/>
             <column name="password" value="pass"/>
-            <column name="role_id" value="bb973951-0021-4965-aab8-1536dc6974c6"/>
+            <column name="role_id" value="87f064fc-e8a0-4e4c-b878-da5f0d006417"/>
         </insert>
 
         <insert tableName="product">
