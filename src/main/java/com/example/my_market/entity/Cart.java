@@ -1,5 +1,7 @@
 package com.example.my_market.entity;
 
+import com.example.my_market.util.aop.GenerateUUID;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
@@ -8,7 +10,6 @@ import java.util.UUID;
 @Table(name = "cart")
 public class Cart /*implements ICart*/{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @ManyToOne()
@@ -29,6 +30,7 @@ public class Cart /*implements ICart*/{
     public Cart() {
     }
 
+    @GenerateUUID
     public Cart(Product product, Integer quantity, User user) {
         this.product = product;
         this.quantity = quantity;
