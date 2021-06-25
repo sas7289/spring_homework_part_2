@@ -12,6 +12,11 @@ public class Cart /*implements ICart*/{
     @Id
     private UUID id;
 
+    @PrePersist
+    private void serId(){
+        id = UUID.randomUUID();
+    }
+
     @ManyToOne()
     @JoinColumn(name = "product_id")
     private Product product;

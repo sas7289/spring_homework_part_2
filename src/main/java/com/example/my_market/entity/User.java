@@ -14,6 +14,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
+    @PrePersist
+    private void serId(){
+        id = UUID.randomUUID();
+    }
+
     @Column(name = "name")
     private String name;
 
@@ -32,7 +37,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 

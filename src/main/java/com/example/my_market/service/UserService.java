@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -16,7 +17,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User findByLogin(String login) {
+    public Optional<User> findByLogin(String login) {
         return userRepository.findByLogin(login);
     }
 }

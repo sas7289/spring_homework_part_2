@@ -11,6 +11,11 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
+    @PrePersist
+    private void serId(){
+        id = UUID.randomUUID();
+    }
+
     @Column(name = "name")
     private String name;
 

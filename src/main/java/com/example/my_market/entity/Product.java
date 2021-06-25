@@ -10,6 +10,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
+    @PrePersist
+    private void serId(){
+        id = UUID.randomUUID();
+    }
+
     @Column(name = "title")
     private String title;
 

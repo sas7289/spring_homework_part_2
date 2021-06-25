@@ -17,8 +17,9 @@ public class Order {
         id = UUID.randomUUID();
     }
 
-    @Column(name = "user_id")
-    private UUID userId;
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "date_of_creation")
     private Timestamp date_of_creation;
@@ -26,8 +27,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(UUID userId) {
-        this.userId = userId;
+    public Order(User user) {
+        this.user = user;
         date_of_creation = new Timestamp(System.currentTimeMillis());
     }
 
@@ -39,12 +40,12 @@ public class Order {
         this.id = id;
     }
 
-    public UUID getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Timestamp getDate_of_creation() {

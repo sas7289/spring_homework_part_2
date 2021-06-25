@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -16,12 +17,12 @@ import java.util.UUID;
 @Service
 public class CartService {
     private CartRepository cartRepository;
-    private HttpSession httpSession;
+    private HttpServletRequest request;
     private EntityManager manager;
 
-    public CartService(CartRepository cartRepository, HttpSession httpSession, EntityManager manager) {
+    public CartService(CartRepository cartRepository, HttpServletRequest request, EntityManager manager) {
         this.cartRepository = cartRepository;
-        this.httpSession = httpSession;
+        this.request = request;
         this.manager = manager;
     }
 
@@ -38,6 +39,7 @@ public class CartService {
     @Transactional
     public void addProduct(Product product, User user) {
 //        cartRepository.save(new Cart(product, quantity, user));
+//        String userLogin = request.getRemoteUser();
         Cart cart = cartRepository.findByUserAndProduct(user, product);
         if (cart!= null) {
             cart.setQuantity(cart.getQuantity() + 1);
@@ -45,7 +47,7 @@ public class CartService {
             return;
         }
         Cart temp = new Cart(product, 1, user);
-        temp.setId(UUID.fromString("asdasd"));
+//        temp.setId(UUID.fromString("asdasd"));
         cartRepository.save(new Cart(product, 1, user));
     }
 
@@ -55,6 +57,10 @@ public class CartService {
 
     public List<Cart> findAllByUserId(UUID id) {
         return cartRepository.findAllByUserId(id);
+    }
+
+    public List<Cart> findByUserLogin(String login) {
+        return cartRepository.findByUserLogin(login);
     }
 
 //    public List<Object> customFindAll(UUID id) {

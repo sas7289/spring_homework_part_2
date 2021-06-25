@@ -1,6 +1,7 @@
 package com.example.my_market.service;
 
 import com.example.my_market.entity.Order;
+import com.example.my_market.entity.User;
 import com.example.my_market.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,8 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public UUID save(UUID userId) {
-        Order order = orderRepository.save(new Order(userId));
+    public UUID save(User user) {
+        Order order = orderRepository.save(new Order(user));
         return order.getId();
     }
 }

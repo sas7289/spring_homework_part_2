@@ -33,13 +33,13 @@ public class MainView extends VerticalLayout {
         grid.setSizeUndefined();
         grid.addColumn(new ComponentRenderer(pr -> {
             Button plusButton = new Button("+", event -> {
-                User user = userService.findByLogin("user_1");
+                User user = userService.findByLogin("user_1").get();
                 Product product = productService.getById(((Product) pr).getId());
                 cartService.addProduct(product, user);
             });
 
             Button minusButton = new Button("-", event -> {
-                User user = userService.findByLogin("user_1");
+                User user = userService.findByLogin("user_1").get();
                 Product product = productService.getById(((Product) pr).getId());
                 cartService.removeProduct(product, user);
             });

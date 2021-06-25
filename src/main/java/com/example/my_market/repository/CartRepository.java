@@ -15,6 +15,8 @@ public interface CartRepository extends JpaRepository<Cart, UUID> {
 
     List<Cart> findAllByUserId(UUID id);
 
+    List<Cart> findByUserLogin(String login);
+
     Cart findByUserAndProduct(User userId, Product productId);
 
     @Query(value = "update cart set order_id = ?2 where user_id = ?1", nativeQuery = true)

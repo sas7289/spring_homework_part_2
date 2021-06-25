@@ -18,8 +18,8 @@
             <column name="last_name" value="user_1_1_1"/>
             <column name="phone" value="8 800 555 35 35"/>
             <column name="login" value="user_1"/>
-            <column name="password" value="pass"/>
-            <column name="role_id" value="87f064fc-e8a0-4e4c-b878-da5f0d006417"/>
+            <column name="password" value="$2a$10$5UfknRGnwo48pEy.3C3hfe6UJ3FuVSSguWi2Zh27AseF6SW8TWgE2"/>
+            <column name="role_id" value="2eec576d-0bb6-44ad-b361-1bff5b25b656"/>
         </insert>
 
         <insert tableName="product">
