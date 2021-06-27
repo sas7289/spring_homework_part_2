@@ -10,6 +10,8 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,8 +58,10 @@ public class RegistrationView extends VerticalLayout {
             Role role = roleService.getRole("user");
             newUser.setId(UUID.randomUUID());
             newUser.setLogin(textFields.get("Login").getValue());
-            newUser.setPassword(textFields.get("Password").getValue());
+//            newUser.setPassword(textFields.get("Password").getValue());
+            newUser.setPassword(BCrypt.hashpw(textFields.get("Password").getValue(), BCrypt.gensalt()));
             newUser.setName(textFields.get("Name").getValue());
+
             newUser.setMiddle_name(textFields.get("Middle_name").getValue());
             newUser.setLast_name(textFields.get("Last_name").getValue());
             newUser.setPhone(textFields.get("Phone").getValue());
