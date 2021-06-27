@@ -13,8 +13,10 @@ public class Order {
     private UUID id;
 
     @PrePersist
-    private void serId(){
-        id = UUID.randomUUID();
+    private void setId(){
+        if(this.id == null) {
+            this.id = UUID.randomUUID();
+        }
     }
 
     @ManyToOne()

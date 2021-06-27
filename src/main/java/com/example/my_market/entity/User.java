@@ -11,12 +11,14 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
     @PrePersist
-    private void serId(){
-        id = UUID.randomUUID();
+    private void setId(){
+        if(this.id == null) {
+            this.id = UUID.randomUUID();
+        }
     }
 
     @Column(name = "name")

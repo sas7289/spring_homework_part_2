@@ -20,4 +20,8 @@ public class UserService {
     public Optional<User> findByLogin(String login) {
         return userRepository.findByLogin(login);
     }
+
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
 }

@@ -12,8 +12,10 @@ public class Role {
     private UUID id;
 
     @PrePersist
-    private void serId(){
-        id = UUID.randomUUID();
+    private void setId(){
+        if(this.id == null) {
+            this.id = UUID.randomUUID();
+        }
     }
 
     @Column(name = "name")
@@ -22,6 +24,13 @@ public class Role {
 //    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
 //    private List<User> users;
 
+
+    public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
 
     public UUID getId() {
         return id;
