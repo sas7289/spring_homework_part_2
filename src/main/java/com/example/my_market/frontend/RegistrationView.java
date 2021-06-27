@@ -6,10 +6,13 @@ import com.example.my_market.service.RoleService;
 import com.example.my_market.service.UserService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.NavigationEvent;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.internal.NavigationRouteTarget;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -68,10 +71,9 @@ public class RegistrationView extends VerticalLayout {
             newUser.setRole(role);
 //            newUser.setRole(new Role("user"));
             userService.saveUser(newUser);
+            UI.getCurrent().navigate("login");
         });
-//        textField.addKeyPressListener(Key.ENTER, event -> {
-//            String value = textField.getValue();
-//        });
+
         add(textFields.values().toArray(new TextField[6]));
         add(button);
     }
