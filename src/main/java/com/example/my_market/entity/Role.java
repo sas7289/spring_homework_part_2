@@ -11,11 +11,16 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
+    @PrePersist
+    private void serId(){
+        id = UUID.randomUUID();
+    }
+
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    private List<User> users;
+//    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+//    private List<User> users;
 
 
     public UUID getId() {
@@ -34,11 +39,11 @@ public class Role {
         this.name = name;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
+//    public List<User> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(List<User> users) {
+//        this.users = users;
+//    }
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd ">
+
+    <changeSet id="flood" author="Aleksandr Shakhoff">
+
+        <insert tableName="users">
+            <column name="id" valueComputed="uuid_generate_v4()"/>
+            <column name="name" value="user_1"/>
+            <column name="middle_name" value="user_1_1"/>
+            <column name="last_name" value="user_1_1_1"/>
+            <column name="phone" value="8 800 555 35 35"/>
+            <column name="login" value="user_1"/>
+            <column name="password" value="$2a$10$5UfknRGnwo48pEy.3C3hfe6UJ3FuVSSguWi2Zh27AseF6SW8TWgE2"/>
+            <column name="role_id" value="2eec576d-0bb6-44ad-b361-1bff5b25b656"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="id" valueComputed="uuid_generate_v4()"/>
+            <column name="title" value="Bread"/>
+            <column name="quantity_in_stock" value="100"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="id" valueComputed="uuid_generate_v4()"/>
+            <column name="title" value="Coffee"/>
+            <column name="quantity_in_stock" value='50'/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="id" valueComputed="uuid_generate_v4()"/>
+            <column name="title" value="Lemon"/>
+            <column name="quantity_in_stock" value='33'/>
+        </insert>
+
+    </changeSet>
+
+
+</databaseChangeLog>

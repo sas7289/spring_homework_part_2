@@ -7,11 +7,17 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
+
+    @PrePersist
+    private void serId(){
+        id = UUID.randomUUID();
+    }
 
     @Column(name = "name")
     private String name;
@@ -26,7 +32,7 @@ public class User {
     private String phone;
 
     @Column(name = "login")
-    String login;
+    private String login;
 
     @Column(name = "password")
     private String password;
@@ -34,6 +40,21 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
+
+
+    public User(UUID id, String name, String middle_name, String last_name, String phone, String login, String password, Role role) {
+        this.id = id;
+        this.name = name;
+        this.middle_name = middle_name;
+        this.last_name = last_name;
+        this.phone = phone;
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
+
+    public User() {
+    }
 
     public UUID getId() {
         return id;
