@@ -4,11 +4,13 @@ import com.example.my_market.entity.Role;
 import com.example.my_market.entity.User;
 import com.example.my_market.service.RoleService;
 import com.example.my_market.service.UserService;
+import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.NavigationEvent;
 import com.vaadin.flow.router.Route;
@@ -23,18 +25,18 @@ import java.util.UUID;
 @Route("register")
 public class RegistrationView extends VerticalLayout {
     private final UserService userService;
-    private final Map<String, TextField> textFields;
+    private final Map<String, AbstractField> textFields;
     private final RoleService roleService;
 
     {
+        PasswordField f = new PasswordField();
         textFields = new HashMap<>();
         textFields.put("Login", new TextField("Login"));
-        textFields.put("Password", new TextField("Password"));
+        textFields.put("Password", new PasswordField("Password"));
         textFields.put("Name", new TextField("name"));
         textFields.put("Middle_name", new TextField("middle_name"));
         textFields.put("Last_name", new TextField("last_name"));
         textFields.put("Phone", new TextField("phone"));
-
     }
 
     public RegistrationView(UserService userService, RoleService roleService) {
@@ -60,21 +62,21 @@ public class RegistrationView extends VerticalLayout {
             User newUser = new User();
             Role role = roleService.getRole("user");
             newUser.setId(UUID.randomUUID());
-            newUser.setLogin(textFields.get("Login").getValue());
+            newUser.setLogin(((TextField)textFields.get("Login")).getValue());
 //            newUser.setPassword(textFields.get("Password").getValue());
-            newUser.setPassword(BCrypt.hashpw(textFields.get("Password").getValue(), BCrypt.gensalt()));
-            newUser.setName(textFields.get("Name").getValue());
+            newUser.setPassword(BCrypt.hashpw(((PasswordField) textFields.get("Password")).getValue(), BCrypt.gensalt()));
+            newUser.setName(((TextField)textFields.get("Name")).getValue());
 
-            newUser.setMiddle_name(textFields.get("Middle_name").getValue());
-            newUser.setLast_name(textFields.get("Last_name").getValue());
-            newUser.setPhone(textFields.get("Phone").getValue());
+            newUser.setMiddle_name(((TextField)textFields.get("Middle_name")).getValue());
+            newUser.setLast_name(((TextField)textFields.get("Last_name")).getValue());
+            newUser.setPhone(((TextField)textFields.get("Phone")).getValue());
             newUser.setRole(role);
 //            newUser.setRole(new Role("user"));
             userService.saveUser(newUser);
             UI.getCurrent().navigate("login");
         });
 
-        add(textFields.values().toArray(new TextField[6]));
+        add(textFields.values().toArray(new AbstractField[6]));
         add(button);
     }
 
@@ -96,8 +98,8 @@ public class RegistrationView extends VerticalLayout {
 
 
     private boolean checkNotNull() {
-        for (TextField field : textFields.values()) {
-            if(field.getValue().isBlank()) {
+        for (AbstractField field : textFields.values()) {
+            if(field.isEmpty()) {
                 return false;
             }
         }
