@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -29,8 +30,11 @@ public class RegistrationView extends VerticalLayout {
     private final RoleService roleService;
 
     {
+        setAlignItems(Alignment.CENTER);
+        setSizeFull();
+        setJustifyContentMode(JustifyContentMode.CENTER);
         PasswordField f = new PasswordField();
-        textFields = new HashMap<>();
+        textFields = new LinkedHashMap<>();
         textFields.put("Login", new TextField("Login"));
         textFields.put("Password", new PasswordField("Password"));
         textFields.put("Name", new TextField("name"));
