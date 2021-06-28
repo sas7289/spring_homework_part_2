@@ -1,23 +1,55 @@
 package com.example.my_market.entity;
 
+import com.example.my_market.util.aop.GenerateUUID;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
 @Table(name = "cart")
-public class Cart {
+public class Cart /*implements ICart*/{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
-    @Column(name = "poroduct_id")
-    private UUID product_id;
+    @PrePersist
+    private void setId(){
+        if(this.id == null) {
+            this.id = UUID.randomUUID();
+        }
+    }
+
+    @ManyToOne()
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "user_id")
-    private UUID user_id;
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    public Cart() {
+    }
+
+    @GenerateUUID
+    public Cart(Product product, Integer quantity, User user) {
+        this.product = product;
+        this.quantity = quantity;
+        this.user = user;
+    }
+
+    public Cart(UUID id, Product product, Integer quantity, User user) {
+        this.id = id;
+        this.product = product;
+        this.quantity = quantity;
+        this.user = user;
+    }
 
     public UUID getId() {
         return id;
@@ -27,12 +59,12 @@ public class Cart {
         this.id = id;
     }
 
-    public UUID getProduct_id() {
-        return product_id;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProduct_id(UUID product_id) {
-        this.product_id = product_id;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Integer getQuantity() {
@@ -43,11 +75,19 @@ public class Cart {
         this.quantity = quantity;
     }
 
-    public UUID getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(UUID user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

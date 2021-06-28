@@ -10,6 +10,13 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
+    @PrePersist
+    private void setId(){
+        if(this.id == null) {
+            this.id = UUID.randomUUID();
+        }
+    }
+
     @Column(name = "text")
     private String text;
 

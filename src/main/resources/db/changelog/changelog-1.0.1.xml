@@ -12,17 +12,8 @@
     <changeSet id="flood" author="Aleksandr Shakhoff">
 
         <insert tableName="role">
+            <column name="id" valueComputed="uuid_generate_v4()"/>
             <column name="name" value="user"/>
-        </insert>
-
-        <insert tableName="user">
-            <column name="name" value="user_1"/>
-            <column name="middle_name" value="user_1_1"/>
-            <column name="last_name" value="user_1_1_1"/>
-            <column name="phone" value="8 800 555 35 35"/>
-            <column name="login" value="user_1"/>
-            <column name="password" value="pass"/>
-            <column name="role_id" value="1"/>
         </insert>
 
     </changeSet>

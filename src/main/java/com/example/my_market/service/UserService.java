@@ -1,0 +1,27 @@
+package com.example.my_market.service;
+
+import com.example.my_market.entity.User;
+import com.example.my_market.repository.UserRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.UUID;
+
+@Service
+public class UserService {
+    UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public Optional<User> findByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
+
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+}
