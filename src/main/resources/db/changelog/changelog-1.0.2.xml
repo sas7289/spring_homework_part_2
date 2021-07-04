@@ -19,25 +19,28 @@
             <column name="phone" value="8 800 555 35 35"/>
             <column name="login" value="user_1"/>
             <column name="password" value="$2a$10$5UfknRGnwo48pEy.3C3hfe6UJ3FuVSSguWi2Zh27AseF6SW8TWgE2"/>
-            <column name="role_id" value="2eec576d-0bb6-44ad-b361-1bff5b25b656"/>
+            <column name="role_id" value="04ab2696-f97f-493e-8360-e1413e687d93"/>
         </insert>
 
         <insert tableName="product">
             <column name="id" valueComputed="uuid_generate_v4()"/>
-            <column name="title" value="Bread"/>
+            <column name="title" value="bread"/>
             <column name="quantity_in_stock" value="100"/>
+            <column name="price" value="46"/>
         </insert>
 
         <insert tableName="product">
             <column name="id" valueComputed="uuid_generate_v4()"/>
-            <column name="title" value="Coffee"/>
+            <column name="title" value="coffee"/>
             <column name="quantity_in_stock" value='50'/>
+            <column name="price" value="370"/>
         </insert>
 
         <insert tableName="product">
             <column name="id" valueComputed="uuid_generate_v4()"/>
-            <column name="title" value="Lemon"/>
+            <column name="title" value="lemon"/>
             <column name="quantity_in_stock" value='33'/>
+            <column name="price" value="150"/>
         </insert>
 
     </changeSet>

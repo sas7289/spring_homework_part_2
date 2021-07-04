@@ -48,6 +48,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="quantity_in_stock" type="int" defaultValue="0"/>
+            <column name="price" type="int" defaultValue="0"/>
         </createTable>
 
 

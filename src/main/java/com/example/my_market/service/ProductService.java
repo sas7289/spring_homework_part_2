@@ -2,6 +2,7 @@ package com.example.my_market.service;
 
 import com.example.my_market.entity.Product;
 import com.example.my_market.repository.ProductRepository;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,5 +23,9 @@ public class ProductService {
 
     public Product getById(UUID id) {
         return productRepository.getById(id);
+    }
+
+    public List<Product> findAll(Specification<Product> totalSpecifications) {
+        return productRepository.findAll(totalSpecifications);
     }
 }

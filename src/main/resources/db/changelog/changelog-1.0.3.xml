@@ -11,10 +11,19 @@
 
     <changeSet id="add_price_to_product" author="Aleksandr Shakhoff">
 
-        <addColumn schemaName= "public"
-                   tableName="product" >
-            <column name="price"
-                    type="int">
+        <createTable tableName="orders">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_creation" type="TIMESTAMP WITH TIMEZONE" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+
+        <addColumn tableName="cart">
+            <column name="order_id" type="uuid" defaultValue="null">
+                <constraints foreignKeyName="fk_cart_order" references="orders(id)"/>
             </column>
         </addColumn>
 

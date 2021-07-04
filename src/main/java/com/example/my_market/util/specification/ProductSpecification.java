@@ -14,7 +14,7 @@ public class ProductSpecification {
                 criteriaBuilder.lessThanOrEqualTo(root.get("price"), maxPrice);
     }
 
-    public static Specification<Product> productGreaterOrEqualsThen(String title) {
+    public static Specification<Product> productLikeTitle(String title) {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.like(root.get("title"), title);
         //String.format("%%%%s%%", title)
