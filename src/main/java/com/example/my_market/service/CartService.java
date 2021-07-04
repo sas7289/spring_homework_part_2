@@ -49,7 +49,7 @@ public class CartService {
         Cart temp = new Cart(product, 1, user);
 //        temp.setId(UUID.fromString("asdasd"));
         cartRepository.save(new Cart(product, 1, user));
-        return cart.getQuantity();
+        return temp.getQuantity();
     }
 
     public List<Cart> findAll() {

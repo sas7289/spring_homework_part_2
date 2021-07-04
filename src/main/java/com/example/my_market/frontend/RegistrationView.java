@@ -9,6 +9,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -37,7 +38,6 @@ public class RegistrationView extends VerticalLayout {
         setAlignItems(Alignment.CENTER);
         setSizeFull();
         setJustifyContentMode(JustifyContentMode.CENTER);
-        PasswordField f = new PasswordField();
         textFields = new LinkedHashMap<>();
         textFields.put("Login", new TextField("Логин"));
         textFields.put("Password", new PasswordField("Пароль"));
@@ -51,18 +51,7 @@ public class RegistrationView extends VerticalLayout {
     public RegistrationView(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-//        TextField login = new TextField();
-//        login.setLabel("Login");
-//        TextField password = new TextField();
-//        password.setLabel("Password");
-//        TextField name = new TextField();
-//        name.setLabel("name");
-//        TextField middle_name = new TextField();
-//        middle_name.setLabel("middle_name");
-//        TextField last_name = new TextField();
-//        last_name.setLabel("last_name");
-//        TextField phone = new TextField();
-//        phone.setLabel("phone");
+
         Button button = new Button("Зарегистрироваться");
         button.addClickListener(event -> {
             if (!checkNotNull()) {
@@ -72,7 +61,6 @@ public class RegistrationView extends VerticalLayout {
             Role role = roleService.getRole("user");
             newUser.setId(UUID.randomUUID());
             newUser.setLogin(((TextField) textFields.get("Login")).getValue());
-//            newUser.setPassword(textFields.get("Password").getValue());
             if (!((PasswordField) textFields.get("Password")).getValue().equals(((PasswordField) textFields.get("RePassword")).getValue())) {
                 topLabel.setVisible(true);
                 topLabel.setText("Пароли не совпадают!");
@@ -86,7 +74,6 @@ public class RegistrationView extends VerticalLayout {
             newUser.setLast_name(((TextField) textFields.get("Last_name")).getValue());
             newUser.setPhone(((TextField) textFields.get("Phone")).getValue());
             newUser.setRole(role);
-//            newUser.setRole(new Role("user"));
             userService.saveUser(newUser);
             UI.getCurrent().navigate("login");
         });
@@ -96,20 +83,6 @@ public class RegistrationView extends VerticalLayout {
     }
 
 
-//    private void textFieldsInitialize() {
-//        TextField login = new TextField();
-//        login.setLabel("Login");
-//        TextField password = new TextField();
-//        password.setLabel("Password");
-//        TextField name = new TextField();
-//        name.setLabel("name");
-//        TextField middle_name = new TextField();
-//        middle_name.setLabel("middle_name");
-//        TextField last_name = new TextField();
-//        last_name.setLabel("last_name");
-//        TextField phone = new TextField();
-//        phone.setLabel("phone");
-//    }
 
 
     private boolean checkNotNull() {
