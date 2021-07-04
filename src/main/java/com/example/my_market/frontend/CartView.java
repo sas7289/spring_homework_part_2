@@ -38,14 +38,14 @@ public class CartView extends VerticalLayout {
         grid.addColumn(Cart::getProduct);
         grid.setColumns("product.title", "quantity");
 
+
+        add(Navigation.initNavigationPanel(), grid);
+
         add(new Button("Заказать", event -> {
             User currentUser = userService.findByLogin(userLogin).get();
             UUID orderId = orderService.save(currentUser);
             cartService.addOrderIdToItems(currentUser.getId(), orderId);
         }));
-
-        add(grid);
-
     }
 
 
