@@ -21,7 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
-@Route("")
+@Route("main")
 public class MainView extends VerticalLayout {
     private final ProductService productService;
     private final CartService cartService;
@@ -50,7 +50,8 @@ public class MainView extends VerticalLayout {
         mainGrid.setSizeUndefined();
         mainGrid.addColumn(new ComponentRenderer(pr -> {
             Label countOfProduct = new Label(
-                    cartService.findByUserAndProduct(user, (Product)pr).getQuantity().toString());
+                    cartService.findByUserAndProduct(user, (Product)pr) == null?
+                    "0" :cartService.findByUserAndProduct(user, (Product)pr).getQuantity().toString());
             Button plusButton = new Button("+", event -> {
 //                User user = userService.findByLogin("user_1").get();
                 Product product = productService.getById(((Product) pr).getId());
