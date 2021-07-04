@@ -37,18 +37,19 @@ public class CartService {
 //    }
 
     @Transactional
-    public void addProduct(Product product, User user) {
+    public Integer addProduct(Product product, User user) {
 //        cartRepository.save(new Cart(product, quantity, user));
 //        String userLogin = request.getRemoteUser();
         Cart cart = cartRepository.findByUserAndProduct(user, product);
         if (cart!= null) {
             cart.setQuantity(cart.getQuantity() + 1);
             manager.persist(cart);
-            return;
+            return cart.getQuantity();
         }
         Cart temp = new Cart(product, 1, user);
 //        temp.setId(UUID.fromString("asdasd"));
         cartRepository.save(new Cart(product, 1, user));
+        return cart.getQuantity();
     }
 
     public List<Cart> findAll() {
@@ -67,14 +68,23 @@ public class CartService {
 //        return cartRepository.customFindAll(id);
 //    }
 
-    public void removeProduct(Product product, User user) {
-//        Cart cart = cartRepository.findByUserIdAndProductId(product.getId(), user.getId());
-//        if (cart!= null) {
-//            cart.setQuantity(cart.getQuantity() - 1);
-//        }
+    @Transactional
+    public Integer removeProduct(Product product, User user) {
+        Cart cart = cartRepository.findByUserAndProduct(user, product);
+        if (cart!= null) {
+
+            cart.setQuantity(cart.getQuantity() > 0 ? cart.getQuantity() - 1 : 0);
+            manager.persist(cart);
+            return cart.getQuantity();
+        }
+        return 0;
     }
 
     public void addOrderIdToItems(UUID userId, UUID orderId) {
         cartRepository.updateOrderId(userId, orderId);
+    }
+
+    public Cart findByUserAndProduct(User user, Product product) {
+        return cartRepository.findByUserAndProduct(user, product);
     }
 }
