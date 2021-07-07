@@ -19,7 +19,7 @@
             </column>
         </createTable>
 
-        <createTable tableName="user">
+        <createTable tableName="users">
             <column name="id" type="uuid">
                 <constraints primaryKey="true"/>
             </column>
@@ -32,7 +32,7 @@
             <column name="login" type="varchar(36)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="password" type="varchar(36)">
+            <column name="password" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="role_id" type="uuid">
@@ -48,6 +48,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="quantity_in_stock" type="int" defaultValue="0"/>
+            <column name="price" type="int" defaultValue="0"/>
         </createTable>
 
 
@@ -60,7 +61,7 @@
             </column>
             <column name="quantity" type="int" defaultValue="0"/>
             <column name="user_id" type="uuid">
-                <constraints nullable="false" foreignKeyName="fk_user_id" references="user(id)"/>
+                <constraints nullable="false" foreignKeyName="fk_user_id" references="users(id)"/>
             </column>
         </createTable>
 
