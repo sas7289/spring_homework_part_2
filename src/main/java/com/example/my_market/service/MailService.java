@@ -50,7 +50,7 @@ public class MailService {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    public static void main(String[] args) throws GeneralSecurityException, IOException, MessagingException {
+    public static void sendEmail(String emailTo, String emailText) throws GeneralSecurityException, IOException, MessagingException {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Gmail service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
@@ -60,11 +60,13 @@ public class MailService {
         Session session = Session.getDefaultInstance(new Properties(), null);
         MimeMessage email = new MimeMessage(session);
         email.setFrom(new InternetAddress("me"));
-        email.addRecipient(javax.mail.Message.RecipientType.TO, new InternetAddress("sas7289@yandex.ru"));
+        email.addRecipient(javax.mail.Message.RecipientType.TO, new InternetAddress(emailTo));
         email.setSubject("test");
-        email.setText("He is alive!");
+        email.setText(emailText);
 
         Message message = createMessageWithEmail(email);
+
+        service.users().messages().send(user, message).execute();
     }
 
     private static Message createMessageWithEmail(MimeMessage email) {

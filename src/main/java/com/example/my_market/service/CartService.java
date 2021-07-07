@@ -26,20 +26,9 @@ public class CartService {
         this.manager = manager;
     }
 
-//    public void addProduct(Product product, Integer quantity, User user) {
-////        cartRepository.save(new Cart(product, quantity, user));
-//        Cart cart = cartRepository.findByUserIdAndProductId(product.getId(), user.getId());
-//        if (cart!= null) {
-//            Integer quantity = cart.getQuantity();
-//            cartRepository.s
-//        }
-//        cartRepository.save(new Cart(product, quantity, user));
-//    }
 
     @Transactional
     public Integer addProduct(Product product, User user) {
-//        cartRepository.save(new Cart(product, quantity, user));
-//        String userLogin = request.getRemoteUser();
         Cart cart = cartRepository.findByUserAndProduct(user, product);
         if (cart!= null) {
             cart.setQuantity(cart.getQuantity() + 1);
@@ -47,7 +36,6 @@ public class CartService {
             return cart.getQuantity();
         }
         Cart temp = new Cart(product, 1, user);
-//        temp.setId(UUID.fromString("asdasd"));
         cartRepository.save(new Cart(product, 1, user));
         return temp.getQuantity();
     }
@@ -64,9 +52,6 @@ public class CartService {
         return cartRepository.findByUserLogin(login);
     }
 
-//    public List<Object> customFindAll(UUID id) {
-//        return cartRepository.customFindAll(id);
-//    }
 
     @Transactional
     public Integer removeProduct(Product product, User user) {
