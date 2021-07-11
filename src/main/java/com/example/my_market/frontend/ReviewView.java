@@ -13,10 +13,13 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.Route;
+import org.hibernate.Session;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.SessionScope;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.UUID;
@@ -29,9 +32,13 @@ public class ReviewView extends VerticalLayout {
     private Product currentProduct;
     private final User currentUser;
     private Grid<Review> mainGrid;
+    private final Session hibernateSession;
 
-    public ReviewView(ReviewService reviewService, HttpSession session) {
+    public ReviewView(ReviewService reviewService,
+                      HttpSession session,
+                      Session hibernateSession) {
         this.session = session;
+        this.hibernateSession = hibernateSession;
         this.authentication = SecurityContextHolder.getContext().getAuthentication();
         this.reviewService = reviewService;
         this.currentProduct = (Product) ComponentUtil.getData(UI.getCurrent(), "product");
@@ -47,6 +54,7 @@ public class ReviewView extends VerticalLayout {
             review.setUser(currentUser);
             review.setText(currentReviewText.getValue());
             review.setId(UUID.randomUUID());
+            review.setModerated(false);
             reviewService.saveReview(review);
             UI.getCurrent().getPage().reload();
         });
@@ -55,24 +63,32 @@ public class ReviewView extends VerticalLayout {
             currentProduct = (Product) session.getAttribute("product");
         }
 
+
+        add(Common.initNavigationPanel());
+        add(currentReviewText);
+        add(saveReviewButton);
         initReviews();
-//        List<Review> allByProduct = reviewService.findAllByProduct(currentProduct);
-//        mainGrid = new Grid<>(Review.class);
-//        mainGrid.setItems(allByProduct);
-//        mainGrid.setColumns("text");
-//        mainGrid.getColumnByKey("text").setHeader("Отзывы");
-//        add(currentReviewText);
-//        add(saveReviewButton);
-//        add(mainGrid);
     }
 
 
-    private void initReviews() {
+    public void initReviews() {
         List<Review> reviews = reviewService.findAllByProduct(currentProduct);
+        Boolean isModerator = currentUser.getRole().getName().equals("admin");
         for (Review review : reviews) {
             TextArea textArea = new TextArea();
             textArea.setValue(review.getText());
-            add(textArea);
+            textArea.setReadOnly(true);
+
+            if(isModerator && !review.getModerated()) {
+                add(textArea);
+                add(new Button("Опубликовать", event -> {
+                    review.setModerated(true);
+                    reviewService.saveReview(review);
+                    UI.getCurrent().getPage().reload();
+                }));
+            } else if (review.getModerated()){
+                add(textArea);
+            }
         }
     }
 }

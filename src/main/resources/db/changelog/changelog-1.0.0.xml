@@ -89,7 +89,7 @@
             <column name="user_id" type="uuid">
                 <constraints nullable="false" foreignKeyName="fk_user_id" references="users(id)"/>
             </column>
-            <column name="isModerated" type="bool">
+            <column name="is_moderated" type="bool">
                 <constraints nullable="false"/>
             </column>
         </createTable>

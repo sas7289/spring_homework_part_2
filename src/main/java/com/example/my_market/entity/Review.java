@@ -27,6 +27,18 @@ public class Review {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "is_moderated")
+    Boolean isModerated;
+
+    public Boolean getModerated() {
+        return isModerated;
+    }
+
+
+    public void setModerated(Boolean moderated) {
+        isModerated = moderated;
+    }
+
     public UUID getId() {
         return id;
     }
