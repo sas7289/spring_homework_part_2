@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd ">
+
+    <changeSet id="init" author="Aleksandr Shakhoff">
+        <createTable tableName="role">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="users">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(36)"/>
+            <column name="middle_name" type="varchar(36)"/>
+            <column name="last_name" type="varchar(36)"/>
+            <column name="phone" type="varchar(16)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="login" type="varchar(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="uuid">
+                <constraints foreignKeyName="fk_role" references="role(id)"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="product">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity_in_stock" type="int" defaultValue="0"/>
+            <column name="price" type="int" defaultValue="0"/>
+        </createTable>
+
+
+        <createTable tableName="cart">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="product_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_product_id" references="product(id)"/>
+            </column>
+            <column name="quantity" type="int" defaultValue="0"/>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_user_id" references="users(id)"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="review">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="text" type="text"/>
+            <column name="product_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_product_id" references="product(id)"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+
+</databaseChangeLog>
