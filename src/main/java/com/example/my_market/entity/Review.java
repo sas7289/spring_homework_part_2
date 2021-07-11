@@ -7,14 +7,37 @@ import java.util.UUID;
 @Table(name = "review")
 public class Review {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
+
+    @PrePersist
+    private void setId(){
+        if(this.id == null) {
+            this.id = UUID.randomUUID();
+        }
+    }
 
     @Column(name = "text")
     private String text;
 
-    @Column(name = "product_id")
-    private UUID product_id;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(name = "is_moderated")
+    Boolean isModerated;
+
+    public Boolean getModerated() {
+        return isModerated;
+    }
+
+
+    public void setModerated(Boolean moderated) {
+        isModerated = moderated;
+    }
 
     public UUID getId() {
         return id;
@@ -32,11 +55,19 @@ public class Review {
         this.text = text;
     }
 
-    public UUID getProduct_id() {
-        return product_id;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProduct_id(UUID product_id) {
-        this.product_id = product_id;
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

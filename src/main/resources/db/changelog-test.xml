@@ -10,16 +10,6 @@
         http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd ">
 
     <changeSet id="init" author="Aleksandr Shakhoff">
-        <createTable tableName="orders">
-            <column name="id" type="uuid">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="user_id" type="uuid">
-                <constraints nullable="false"/>
-            </column>
-            <column name="date_of_creation" type="TIMESTAMP WITH TIMEZONE" defaultValueComputed="CURRENT_TIMESTAMP"/>
-        </createTable>
-
         <createTable tableName="role">
             <column name="id" type="uuid">
                 <constraints primaryKey="true"/>
@@ -73,9 +63,6 @@
             <column name="user_id" type="uuid">
                 <constraints nullable="false" foreignKeyName="fk_user_id" references="users(id)"/>
             </column>
-            <column name="order_id" type="uuid" defaultValue="null">
-                <constraints foreignKeyName="fk_cart_order" references="orders(id)"/>
-            </column>
         </createTable>
 
         <createTable tableName="review">
@@ -86,14 +73,7 @@
             <column name="product_id" type="uuid">
                 <constraints nullable="false" foreignKeyName="fk_product_id" references="product(id)"/>
             </column>
-            <column name="user_id" type="uuid">
-                <constraints nullable="false" foreignKeyName="fk_user_id" references="users(id)"/>
-            </column>
-            <column name="is_moderated" type="bool">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
-
 
     </changeSet>
 
