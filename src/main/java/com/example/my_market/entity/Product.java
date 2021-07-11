@@ -1,5 +1,7 @@
 package com.example.my_market.entity;
 
+import org.springframework.web.context.annotation.SessionScope;
+
 import javax.persistence.*;
 import java.util.UUID;
 

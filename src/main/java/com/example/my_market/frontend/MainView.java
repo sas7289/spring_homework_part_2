@@ -6,6 +6,8 @@ import com.example.my_market.service.CartService;
 import com.example.my_market.service.ProductService;
 import com.example.my_market.service.UserService;
 import com.example.my_market.util.specification.ProductSpecification;
+import com.vaadin.flow.component.ComponentUtil;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
@@ -79,24 +81,29 @@ public class MainView extends VerticalLayout {
         mainGrid.setItems(all);
         mainGrid.setColumns("title", "price", "quantity_in_stock");
         mainGrid.setSizeUndefined();
-        mainGrid.addColumn(new ComponentRenderer(pr -> {
+        mainGrid.addColumn(new ComponentRenderer(item -> {
             Label countOfProduct = new Label(
-                    cartService.findByUserAndProduct(user, (Product)pr) == null?
-                    "0" : cartService.findByUserAndProduct(user, (Product)pr).getQuantity().toString());
+                    cartService.findByUserAndProduct(user, (Product)item) == null?
+                    "0" : cartService.findByUserAndProduct(user, (Product)item).getQuantity().toString());
             Button plusButton = new Button("+", event -> {
 //                User user = userService.findByLogin("user_1").get();
-                Product product = productService.getById(((Product) pr).getId());
+                Product product = productService.getById(((Product) item).getId());
                 Integer productQuantity = cartService.addProduct(product, user);
                 countOfProduct.setText(productQuantity.toString());
             });
 
             Button minusButton = new Button("-", event -> {
 //                User user = userService.findByLogin("user_1").get();
-                Product product = productService.getById(((Product) pr).getId());
+                Product product = productService.getById(((Product) item).getId());
                 Integer productQuantity = cartService.removeProduct(product, user);
                 countOfProduct.setText(productQuantity.toString());
             });
-            HorizontalLayout horizontalLayout = new HorizontalLayout(plusButton, minusButton, countOfProduct);
+
+            Button addReview = new Button("Оставить отзыв", event -> {
+                ComponentUtil.setData(UI.getCurrent(), "product", item);
+                UI.getCurrent().navigate("Review");
+            });
+            HorizontalLayout horizontalLayout = new HorizontalLayout(plusButton, minusButton, countOfProduct, addReview);
             horizontalLayout.setAlignItems(Alignment.CENTER);
             return horizontalLayout;
         }));
